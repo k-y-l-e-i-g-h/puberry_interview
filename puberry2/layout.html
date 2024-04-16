@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="websocket.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <script>
+        // Establish WebSocket connection
+        const socket = new WebSocket('ws://localhost:5000');
+
+        // WebSocket event handlers
+        socket.onopen = function(event) {
+            console.log('WebSocket connection established');
+        };
+
+        socket.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+        };
+
+        socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+        };
+
+        socket.onclose = function(event) {
+            console.log('WebSocket connection closed');
+        };
+    </script>
+</body>
+</html>

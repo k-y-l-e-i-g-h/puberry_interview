@@ -1,0 +1,114 @@
+<!-- lobby.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="websocket.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <title>Lobby Page</title>
+</head>
+<body class="lobby-image">
+    <h1 id="lobbyNameHeading" class="big-white-text center"></h1>
+    <h2 id="lobbyIdHeading" class="med-white-text center" style="margin-bottom: 85px;"></h2>
+    <div class="center" style="margin-top: 20px;">
+        <button id="notifyPlayersButton" class="button-23 home-button-padding">Notify Players</button>
+    </div>
+    <div class="center" style="margin-top: 20px;">
+        <button id="startGameButton" class="button-23 home-button-padding">Start Game</button>
+    </div>
+    <div class="center" style="margin-top: 20px;">
+        <button id="leaveLobbyButton" class="button-23 home-button-padding">Leave Lobby</button>
+    </div>
+
+    <div id="notifyPlayersForm" class="center" style="display: none; margin-top: 200px;">
+        <form id="messageForm">
+            <label for="message" class="small-white-text">Message:</label>
+            <input type="text" id="message" name="message" required>
+            <input class="button-23" type="submit" value="Send">
+        </form>
+    </div>
+
+    <div id="gameImageContainer" class="center" style="display: none; margin: 20px;">
+        <img id="gameImage" src="" alt="Game Image">
+    </div>
+
+    <script>
+        // Get lobby name and ID from localStorage
+        var lobbyName = window.localStorage.getItem('lobbyName');
+        var lobbyId = window.localStorage.getItem('lobbyId');
+
+        // Update HTML content with lobby name and ID
+        document.getElementById('lobbyNameHeading').innerText = 'Welcome to \'' + lobbyName + '\'';
+        document.getElementById('lobbyIdHeading').innerText = '(ID: ' + lobbyId + ')';
+
+        document.getElementById("notifyPlayersButton").addEventListener("click", function() {
+            document.getElementById("notifyPlayersForm").style.display = "block";
+        });
+
+        document.getElementById("messageForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const message = document.getElementById("message").value;
+            const request = {
+                action: "notifyPlayers",
+                lobbyId: lobbyId,
+                message: message
+            };
+            // Send the request to the server using WebSocket
+            websocket.send(JSON.stringify(request));
+
+            // Display the message on the frontend
+            displayMessage("<span style='color: whitesmoke;'>You: "  + message + "</span>");
+
+            // Clear the input field
+            document.getElementById("message").value = "";
+            document.getElementById("notifyPlayersForm").style.display = "none";
+        });
+
+        // Event listener for the Start Game button
+        document.getElementById("startGameButton").addEventListener("click", function() {
+            // Send request to backend to start the game
+            var request = {
+                action: "startGame",
+                lobbyId: lobbyId
+            };
+            websocket.send(JSON.stringify(request));
+
+            // Display the game image container
+            document.getElementById('gameImageContainer').style.display = 'block';
+            // Set the src attribute of the game image
+            var gameImageSrc = "https://st5.depositphotos.com/8209392/66332/i/450/depositphotos_663324190-stock-photo-icon-symbol-work-progress-road.jpg";
+            document.getElementById('gameImage').src = gameImageSrc;
+        });
+
+        // Event listener for the Leave Lobby button
+        document.getElementById("leaveLobbyButton").addEventListener("click", function() {
+            // Prompt user to confirm before leaving the lobby
+            var confirmLeave = confirm("Are you sure you want to leave the lobby?");
+            if (confirmLeave) {
+                // Send request to backend to leave the lobby
+                var request = {
+                    action: "leaveLobby",
+                    playerId: localStorage.getItem('playerId'),
+                    lobbyId: lobbyId
+                };
+                websocket.send(JSON.stringify(request));
+
+                // Navigate back to the home page
+                window.location.href = "home.html";
+            }
+        });
+
+        // Function to display message on the frontend
+        function displayMessage(message) {
+            var messageDiv = document.createElement("div");
+            messageDiv.textContent = message;
+
+            messageDiv.innerHTML = message;
+            document.body.appendChild(messageDiv);
+        }
+    </script>
+</body>
+</html>
+

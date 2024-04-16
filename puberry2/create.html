@@ -1,0 +1,56 @@
+<!-- create.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="websocket.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <title>Create Lobby</title>
+</head>
+<body class="home-image">
+    <h1 class="big-white-text center" style="margin-bottom: 145px;">Welcome!</h1>
+
+    <!-- Create Lobby Form -->
+    <div id="createLobbyForm" class="center" style="margin-top: 120px;">
+        <h2 class="med-white-text">Create Lobby</h2>
+        <form id="lobbyCreationForm">
+            <div style="margin-bottom: 10px;">
+                <label for="playerId" class="small-white-text">Player ID:</label>
+                <input type="text" id="playerId" name="playerId" required><br>
+            </div>
+
+            <label for="lobbyName" class="small-white-text">Lobby Name:</label>
+            <input type="text" id="lobbyName" name="lobbyName" required><br>
+            <button type="submit" class="button-23 home-button-padding" style="margin-top: 20px;" >Create</button>
+        </form>
+    </div>
+
+    <script>
+
+        document.getElementById("lobbyCreationForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var playerId = document.getElementById("playerId").value;
+            var lobbyName = document.getElementById("lobbyName").value;
+
+            // Send lobby creation request to the server
+            var request = {
+                action: "createLobby",
+                playerId: playerId,
+                lobbyDetails: {
+                    name: lobbyName
+                }
+            };
+            // Send the request to the server using WebSocket
+            websocket.send(JSON.stringify(request));
+            window.localStorage.setItem('playerId', playerId);
+            window.localStorage.setItem('lobbyName', lobbyName);
+            window.localStorage.setItem('lobbyId', 1);
+
+            window.location.href = "lobby.html"
+        });
+    </script>
+</body>
+</html>

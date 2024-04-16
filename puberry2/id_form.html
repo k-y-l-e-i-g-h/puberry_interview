@@ -1,0 +1,49 @@
+<!-- id_form.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="websocket.js"></script>
+    <link rel="stylesheet" href="main.css">     
+
+    <title>Home</title>
+</head>
+
+<body>
+    <video autoplay loop muted>
+        <source src="space.mp4" type="video/mp4">
+    </video> 
+    <h1 class="big-white-text center">Enter Your Player ID</h1>
+    <form id="playerIdForm" class="center" style="margin-top: 220px;">
+        <label for="playerId" class="small-white-text">Player ID:</label>
+        <input type="text" id="playerId" name="playerId" required>
+        <button type="submit" class="button-23">Submit</button>
+    </form>
+
+    <script>
+        // Add an event listener to the form submission
+        document.getElementById("playerIdForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the player ID from the form
+            var playerId = document.getElementById("playerId").value;
+
+            // Send player ID to the server using WebSocket connection
+            if (websocket.readyState === WebSocket.OPEN) {
+                var message = {
+                    action: "setPlayerId",
+                    playerId: playerId
+                };
+                websocket.send(JSON.stringify(message));
+            } else {
+                console.error("WebSocket connection is not open.");
+            }
+
+            // Redirect the user to the home page
+            window.location.href = "home.html";
+        });
+    </script>
+</body>
+</html>

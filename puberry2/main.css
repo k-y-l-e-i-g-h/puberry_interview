@@ -1,0 +1,97 @@
+/* ID FORM */
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index:-1;
+}
+.home-image {
+    background-image: url(https://images.unsplash.com/photo-1501862700950-18382cd41497?q=80&w=2019&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-size: 100vw 100vh;
+    margin-top: 100px;
+}
+.lobby-image {
+    background-image: url(https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=2348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-size: 100vw 100vh;
+    margin-top: 100px;
+}
+.big-white-text {
+    color: whitesmoke;
+    font-size: 60px;
+    font-family: OCR A std, monospace;
+    vertical-align: middle;
+    margin-top: 100;
+}
+.center {
+    text-align: center;
+}
+
+.small-white-text {
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+}
+
+/* CSS */
+.button-23 {
+  background-color: #FFFFFF;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #222222;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  /* margin: 0; */
+  outline: none;
+  /* padding: 13px 23px; */
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+  margin-left: 5;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.button-23:focus-visible {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow .2s;
+}
+
+.button-23:active {
+  background-color: #F7F7F7;
+  border-color: #000000;
+  transform: scale(.96);
+}
+
+.button-23:disabled {
+  border-color: #DDDDDD;
+  color: #DDDDDD;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* HOME */
+.med-white-text {
+    color: whitesmoke;
+    font-size: 18px;
+    font-family: OCR A std, monospace;
+}
+
+.home-button-padding {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
